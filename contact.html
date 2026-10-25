@@ -49,7 +49,9 @@
   .contact-line a,.contact-line span{font-size:14px;color:#525a66;word-break:break-all}
   .contact-line a:hover{color:#c05621}
   .side .note{margin-top:18px;font-size:13.5px;color:#525a66;background:#f6f5f2;padding:14px;border-radius:3px}
-  .sent-note{background:#e7f4ea;border:1px solid #bfdcc6;color:#2e6b3a;padding:12px 14px;border-radius:3px;margin-bottom:16px;font-size:14px;font-weight:600}
+  .sent-note,.form-msg{margin-bottom:16px;padding:12px 14px;border-radius:3px;font-size:14px;font-weight:600}
+  .form-msg.ok{background:#e7f4ea;border:1px solid #bfdcc6;color:#2e6b3a}
+  .form-msg.fail{background:#fbeceb;border:1px solid #eec4c0;color:#a33b2e}
   footer{background:#191c21;color:#a8a49b;padding:48px 0 34px;font-size:14px}
   .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
   .footer-grid h4{color:#f2f1ed;font-size:15px;margin-bottom:12px;font-weight:700}
@@ -96,12 +98,12 @@
     <div class="form">
       <h2>Inquiry Form</h2>
       <p class="hint">Filling these fields gives us everything needed for an accurate quotation.</p>
-      <form id="inquiry" action="https://formsubmit.co/dinosong.trade@ka-ber.com" method="POST">
-        <input type="hidden" name="_subject" value="Inquiry from Kaber website">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_honey" value="">
-        <input type="hidden" name="_next" value="https://dino-kaber.github.io/kaber-site/contact.html?sent=1">
+      <div id="form-msg" class="form-msg" style="display:none"></div>
+      <form id="inquiry">
+        <input type="hidden" name="access_key" value="4d5fef08-bcfe-4bdb-ba7b-654f1957f664">
+        <input type="hidden" name="subject" value="Inquiry from Kaber website">
+        <input type="hidden" name="from_name" value="Kaber Website">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <div class="row">
           <div class="field">
             <label for="name">Your Name *</label>
@@ -230,13 +232,41 @@
 </footer>
 
 <script>
-  if (new URLSearchParams(window.location.search).get('sent')) {
-    var note = document.createElement('div');
-    note.className = 'sent-note';
-    note.textContent = 'Thank you — your inquiry has been sent. We reply within one business day.';
-    var form = document.getElementById('inquiry');
-    form.parentNode.insertBefore(note, form);
+  var form = document.getElementById('inquiry');
+  var msg = document.getElementById('form-msg');
+  function showMsg(text, kind) {
+    msg.textContent = text;
+    msg.className = 'form-msg ' + kind;
+    msg.style.display = 'block';
   }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = form.querySelector('.submit');
+    var original = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending\u2026';
+    var data = new FormData(form);
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j.success) {
+          showMsg('Thank you \u2014 your inquiry has been sent. We reply within one business day.', 'ok');
+          form.reset();
+        } else {
+          showMsg('Something went wrong \u2014 please email us directly at dinosong.trade@ka-ber.com or WhatsApp +86 180 3199 1250.', 'fail');
+        }
+      })
+      .catch(function () {
+        showMsg('Something went wrong \u2014 please email us directly at dinosong.trade@ka-ber.com or WhatsApp +86 180 3199 1250.', 'fail');
+      })
+      .finally(function () {
+        btn.disabled = false;
+        btn.textContent = original;
+      });
+  });
 </script>
 
 </body>
