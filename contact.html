@@ -49,6 +49,7 @@
   .contact-line a,.contact-line span{font-size:14px;color:#525a66;word-break:break-all}
   .contact-line a:hover{color:#c05621}
   .side .note{margin-top:18px;font-size:13.5px;color:#525a66;background:#f6f5f2;padding:14px;border-radius:3px}
+  .sent-note{background:#e7f4ea;border:1px solid #bfdcc6;color:#2e6b3a;padding:12px 14px;border-radius:3px;margin-bottom:16px;font-size:14px;font-weight:600}
   footer{background:#191c21;color:#a8a49b;padding:48px 0 34px;font-size:14px}
   .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
   .footer-grid h4{color:#f2f1ed;font-size:15px;margin-bottom:12px;font-weight:700}
@@ -95,7 +96,12 @@
     <div class="form">
       <h2>Inquiry Form</h2>
       <p class="hint">Filling these fields gives us everything needed for an accurate quotation.</p>
-      <form id="inquiry" onsubmit="return sendInquiry(event)">
+      <form id="inquiry" action="https://formsubmit.co/dinosong.trade@ka-ber.com" method="POST">
+        <input type="hidden" name="_subject" value="Inquiry from Kaber website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_honey" value="">
+        <input type="hidden" name="_next" value="https://dino-kaber.github.io/kaber-site/contact.html?sent=1">
         <div class="row">
           <div class="field">
             <label for="name">Your Name *</label>
@@ -224,33 +230,12 @@
 </footer>
 
 <script>
-  function sendInquiry(e){
-    try{
-      var f=document.getElementById('inquiry');
-      var g=function(id){var el=document.getElementById(id);return el?el.value.trim():'';};
-      var cust=[].slice.call(f.querySelectorAll('input[name=cust]:checked')).map(function(c){return c.value;});
-      var lines=[
-        'Name: '+g('name'),
-        'Company: '+g('company'),
-        'Email: '+g('email'),
-        'Country: '+g('country'),
-        'Diameter: '+g('diameter'),
-        'Length: '+g('length'),
-        'Type: '+g('type'),
-        'Quantity: '+g('qty'),
-        'Customization: '+(cust.length?cust.join(', '):'None'),
-        '',
-        'Message:',
-        g('msg')
-      ];
-      var body=lines.join('\n');
-      var subj='Inquiry from website — '+g('name')+' ('+g('qty')+' pcs)';
-      window.location.href='mailto:dinosong.trade@ka-ber.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
-    }catch(err){
-      var note=document.querySelector('.note');
-      if(note){note.style.display='block';}
-    }
-    return false;
+  if (new URLSearchParams(window.location.search).get('sent')) {
+    var note = document.createElement('div');
+    note.className = 'sent-note';
+    note.textContent = 'Thank you — your inquiry has been sent. We reply within one business day.';
+    var form = document.getElementById('inquiry');
+    form.parentNode.insertBefore(note, form);
   }
 </script>
 
