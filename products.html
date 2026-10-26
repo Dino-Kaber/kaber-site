@@ -74,9 +74,37 @@
   @media(max-width:620px){
     .gallery{grid-template-columns:1fr}
     .g-item img{height:240px}
-    .zoom-pop{position:fixed;top:auto;bottom:0;left:0;right:0;height:280px}
+    .zoom-pop{position:fixed;top:auto;bottom:0;left:0;right:0;height:340px}
+    .zoom-pop .zoom-img{right:34px}
+    .zoom-hint{font-size:11px;padding:5px 44px 5px 8px}
+    .zoom-slider{position:absolute;top:8px;right:6px;bottom:54px;width:26px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.92);border:1px solid #d8d4cb;border-radius:13px}
+    .zoom-slider input[type=range]{writing-mode:vertical-lr;direction:rtl;width:22px;height:100%;accent-color:#c05621;cursor:pointer;margin:0}
+    .zoom-btns{position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;padding:6px 10px;background:rgba(255,255,255,.95);border-top:1px solid #e4e1da}
+    .zoom-btns button{flex:1;max-width:76px;padding:7px 0;border:1px solid #d8d4cb;background:#fff;border-radius:3px;font-weight:700;font-size:13px;color:#1c1f24;cursor:pointer}
+    .zoom-btns button.on{background:#c05621;color:#fff;border-color:#c05621}
     .footer-grid{grid-template-columns:1fr}
-    .nav{gap:12px}
+    .header-inner{flex-direction:column;align-items:center;gap:8px;padding:12px 0}
+    .brand{font-size:27px;letter-spacing:.03em}
+    .nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 10px;text-align:center;font-size:14px;width:100%;max-width:430px}
+    .nav a{padding:7px 2px;border-radius:4px}
+    .header-inner .btn{margin:2px auto 0}
+    .tbl-wrap table,.tbl-wrap tbody,.tbl-wrap tr,.tbl-wrap td{display:block}
+    .tbl-wrap thead{display:none}
+    .tbl-wrap caption{text-align:center;font-size:16px;margin-bottom:2px}
+    .tbl-wrap tr{border:1px solid #e4e1da;background:#fff;border-radius:4px;margin-bottom:12px;padding:4px 0}
+    .tbl-wrap td{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:8px 14px;border-bottom:1px solid #f0ede6;font-size:13.5px;text-align:right}
+    .tbl-wrap td:last-child{border-bottom:none}
+    .spec-table td:nth-child(1):before{content:"Model"}
+    .spec-table td:nth-child(2):before{content:"Diameter"}
+    .spec-table td:nth-child(3):before{content:"Length"}
+    .spec-table td:nth-child(4):before{content:"Type"}
+    .spec-table td:nth-child(5):before{content:"Material"}
+    .spec-table td:nth-child(6):before{content:"Elasticity"}
+    .spec-table td:nth-child(7):before{content:"Bushing"}
+    .weight-table td:nth-child(1):before{content:"Model"}
+    .weight-table td:nth-child(2):before{content:"Gross Weight"}
+    .weight-table td:nth-child(3):before{content:"Net Weight"}
+    .weight-table td.full:before{content:""}
   }
 </style>
 </head>
@@ -118,7 +146,7 @@
     </div>
 
     <div class="tbl-wrap">
-      <table>
+      <table class="spec-table">
         <caption>Model Specifications</caption>
         <colgroup><col style="width:19%"><col style="width:17%"><col style="width:15%"><col style="width:10%"><col style="width:11%"><col style="width:16%"><col style="width:12%"></colgroup>
         <thead>
@@ -138,7 +166,7 @@
     </div>
 
     <div class="tbl-wrap">
-      <table>
+      <table class="weight-table">
         <caption>Weight — Gross &amp; Net (per unit)</caption>
         <colgroup><col style="width:25%"><col style="width:37.5%"><col style="width:37.5%"></colgroup>
         <thead>
@@ -152,7 +180,7 @@
           <tr><td>27.2×300 Flippable</td><td>723 g / 25.50 oz</td><td>652 g / 23.00 oz</td></tr>
           <tr><td>28.6×300 Flippable</td><td>703.5 g / 24.82 oz</td><td>636 g / 22.44 oz</td></tr>
           <tr><td>31.8×400 Flippable</td><td>748.5 g / 26.40 oz</td><td>639.5 g / 22.56 oz</td></tr>
-          <tr><td>33.9×500</td><td colspan="2">Full specs on request — contact us for the complete data sheet</td></tr>
+          <tr><td>33.9×500</td><td colspan="2" class="full">Full specs on request — contact us for the complete data sheet</td></tr>
         </tbody>
       </table>
     </div>
@@ -255,7 +283,8 @@
 
 <script>
 (function () {
-  var ZOOM_MIN = 2, ZOOM_MAX = 3, ZOOM_DEFAULT = 2;
+  var ZOOM_MIN = 1, ZOOM_MAX = 3, ZOOM_DEFAULT = 2;
+  var isMobile = window.matchMedia('(max-width:620px)').matches;
   var altR = false;
   window.addEventListener('keydown', function (e) { if (e.altKey && e.key.toLowerCase() === 'r') altR = true; });
   window.addEventListener('keyup', function (e) { if (e.key.toLowerCase() === 'r') altR = false; });
@@ -267,14 +296,29 @@
 
     var pop = document.createElement('div');
     pop.className = 'zoom-pop';
-    pop.innerHTML = '<div class="zoom-img"></div><div class="zoom-flag">2.0x</div><div class="zoom-hint">Hold Alt + R, then scroll to zoom 2x-3x</div>';
+    var hintTxt = isMobile ? 'Slide the bar to zoom \u2014 1x to 3x' : 'Hold Alt + R, then scroll to zoom 1x-3x';
+    pop.innerHTML = '<div class="zoom-img"></div><div class="zoom-flag">2.0x</div><div class="zoom-hint">' + hintTxt + '</div>' +
+      (isMobile ? '<div class="zoom-slider"><input type="range" min="1" max="3" step="0.1" value="2" aria-label="Zoom level"></div><div class="zoom-btns"><button type="button" data-z="1">1x</button><button type="button" data-z="2" class="on">2x</button><button type="button" data-z="3">3x</button></div>' : '');
     item.appendChild(pop);
     var zimg = pop.querySelector('.zoom-img');
     var flag = pop.querySelector('.zoom-flag');
     zimg.style.backgroundImage = "url('" + img.getAttribute('src') + "')";
 
+    var slider = pop.querySelector('.zoom-slider input');
+    var btns = pop.querySelectorAll('.zoom-btns button');
+
+    function setZoom(z) {
+      zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, Math.round(z * 10) / 10));
+      if (slider) slider.value = zoom;
+      btns.forEach(function (b) {
+        b.classList.toggle('on', Math.abs(parseFloat(b.getAttribute('data-z')) - zoom) < 0.001);
+      });
+      refresh();
+    }
+
     function refresh(e) {
       var imgR = img.getBoundingClientRect();
+      var area = zimg.getBoundingClientRect();
       var px, py;
       if (e) {
         px = (e.clientX - imgR.left) / imgR.width;
@@ -282,10 +326,19 @@
       } else {
         px = 0.5; py = 0.5;
       }
-      zimg.style.backgroundSize = (imgR.width * zoom) + 'px ' + (imgR.height * zoom) + 'px';
+      var ar = (img.naturalWidth && img.naturalHeight) ? img.naturalWidth / img.naturalHeight : area.width / area.height;
+      var w = area.width * zoom;
+      zimg.style.backgroundSize = w + 'px ' + (w / ar) + 'px';
       zimg.style.backgroundPosition = (px * 100) + '% ' + (py * 100) + '%';
       flag.textContent = zoom.toFixed(1) + 'x';
     }
+
+    if (slider) {
+      slider.addEventListener('input', function () { setZoom(parseFloat(slider.value)); });
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { setZoom(parseFloat(b.getAttribute('data-z'))); });
+    });
 
     item.addEventListener('mouseenter', refresh);
     item.addEventListener('mousemove', refresh);
@@ -293,8 +346,7 @@
       if (!altR) return;
       e.preventDefault();
       zoom += (e.deltaY < 0 ? 0.1 : -0.1);
-      zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, Math.round(zoom * 10) / 10));
-      refresh(e);
+      setZoom(zoom);
     }, { passive: false });
   });
 })();

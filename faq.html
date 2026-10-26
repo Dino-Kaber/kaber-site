@@ -47,7 +47,11 @@
   .footer-legal{margin-top:34px;padding-top:20px;border-top:1px solid #2c3037;font-size:13px}
   @media(max-width:620px){
     .footer-grid{grid-template-columns:1fr}
-    .nav{gap:12px}
+    .header-inner{flex-direction:column;align-items:center;gap:8px;padding:12px 0}
+    .brand{font-size:27px;letter-spacing:.03em}
+    .nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 10px;text-align:center;font-size:14px;width:100%;max-width:430px}
+    .nav a{padding:7px 2px;border-radius:4px}
+    .header-inner .btn{margin:2px auto 0}
   }
 </style>
 </head>
@@ -132,7 +136,7 @@
   <div class="container cta-inner">
     <div>
       <h2>Still Have Questions?</h2>
-      <p>Ask us directly — we usually reply within one business day.</p>
+      <p>Ask us directly — we usually reply within 48 hours (2 business days).</p>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap">
       <a class="btn-white" href="contact.html">Request a Quote</a>

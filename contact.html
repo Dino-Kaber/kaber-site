@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact &amp; Request a Quote | Kaber</title>
-<meta name="description" content="Send your suspension seatpost inquiry: diameter, length, type, quantity and customization needs. We reply within one business day.">
+<meta name="description" content="Send your suspension seatpost inquiry: diameter, length, type, quantity and customization needs. We reply within 48 hours (2 business days).">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231c1f24'/%3E%3Ctext x='32' y='45' font-family='Arial' font-size='38' font-weight='800' fill='%23c05621' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
@@ -65,7 +65,11 @@
   @media(max-width:620px){
     .checks{grid-template-columns:1fr}
     .footer-grid{grid-template-columns:1fr}
-    .nav{gap:12px}
+    .header-inner{flex-direction:column;align-items:center;gap:8px;padding:12px 0}
+    .brand{font-size:27px;letter-spacing:.03em}
+    .nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 10px;text-align:center;font-size:14px;width:100%;max-width:430px}
+    .nav a{padding:7px 2px;border-radius:4px}
+    .header-inner .btn{margin:2px auto 0}
   }
 </style>
 </head>
@@ -89,7 +93,7 @@
 <div class="page-head">
   <div class="container">
     <h1>Request a Quote</h1>
-    <p>Fill in the details below — the more specific, the faster we can quote. We reply within one business day.</p>
+    <p>Fill in the details below — the more specific, the faster we can quote. We reply within 48 hours (2 business days).</p>
   </div>
 </div>
 
@@ -196,7 +200,7 @@
       </div>
       <div class="contact-line">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c05621" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-        <div><b>Response time</b><span>Within 1 business day</span></div>
+        <div><b>Response time</b><span>Within 48 hours (2 business days)</span></div>
       </div>
       <div class="note">If the email client does not open automatically, copy your inquiry and send it directly to dinosong.trade@ka-ber.com or message us on WhatsApp.</div>
     </div>
@@ -253,7 +257,7 @@
     }).then(function (r) { return r.json(); })
       .then(function (j) {
         if (j.success) {
-          showMsg('Thank you \u2014 your inquiry has been sent. We reply within one business day.', 'ok');
+          showMsg('Thank you \u2014 your inquiry has been sent. We reply within 48 hours (2 business days).', 'ok');
           form.reset();
         } else {
           showMsg('Something went wrong \u2014 please email us directly at dinosong.trade@ka-ber.com or WhatsApp +86 180 3199 1250.', 'fail');
