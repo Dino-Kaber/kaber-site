@@ -68,8 +68,8 @@
     .footer-grid{grid-template-columns:1fr}
     .header-inner{flex-direction:column;align-items:center;gap:8px;padding:12px 0}
     .brand{font-size:27px;letter-spacing:.03em}
-    .nav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 10px;text-align:center;font-size:14px;width:100%;max-width:430px}
-    .nav a{padding:7px 2px;border-radius:4px}
+    .nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 12px;text-align:center;font-size:14px;width:100%;max-width:430px}
+    .nav a{padding:7px 10px;border-radius:4px}
     .header-inner .btn{margin:2px auto 0}
   }
 </style>
@@ -82,6 +82,7 @@
     <nav class="nav">
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
+        <a href="about.html">About</a>
       <a href="quality.html">Quality &amp; OEM</a>
       <a href="packaging.html">Packaging</a>
       <a href="faq.html">FAQ</a>
@@ -193,7 +194,7 @@
       </div>
       <div class="contact-line">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c05621" stroke-width="1.8"><path d="M21 11.5a8.5 8.5 0 01-8.5 8.5c-1.8 0-3-.4-4.5-1L3 20l1-5A8.5 8.5 0 1113 3a8.5 8.5 0 018 8.5z"/><path d="M8.5 9.5h7M8.5 13h4.5"/></svg>
-        <div><b>WhatsApp</b><a href="https://wa.me/8618031991250" target="_blank" rel="noopener">+86 180 3199 1250</a></div>
+        <div><b>WhatsApp</b><a href="https://wa.me/8613325767451" target="_blank" rel="noopener">+86 13325767451 / +853 63298596</a></div>
       </div>
       <div class="contact-line">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c05621" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
@@ -218,6 +219,7 @@
       <div>
         <h4>Explore</h4>
         <a href="products.html">Products</a>
+        <a href="about.html">About</a>
         <a href="quality.html">Quality &amp; OEM</a>
         <a href="packaging.html">Packaging</a>
         <a href="faq.html">FAQ</a>
@@ -225,7 +227,7 @@
       <div>
         <h4>Contact</h4>
         <a href="mailto:dinosong.trade@ka-ber.com">dinosong.trade@ka-ber.com</a>
-        <a href="https://wa.me/8618031991250" target="_blank" rel="noopener">WhatsApp: +86 180 3199 1250</a>
+        <a href="https://wa.me/8613325767451" target="_blank" rel="noopener">WhatsApp: +86 13325767451 / +853 63298596</a>
         <span>Shenzhen, Guangdong, China</span>
       </div>
     </div>
@@ -261,11 +263,11 @@
           showMsg('Thank you \u2014 your inquiry has been sent. We reply within 48 hours (2 business days).', 'ok');
           form.reset();
         } else {
-          showMsg('Something went wrong \u2014 please email us directly at dinosong.trade@ka-ber.com or WhatsApp +86 180 3199 1250.', 'fail');
+          showMsg('Something went wrong \u2014 please email us directly at dinosong.trade@ka-ber.com or WhatsApp +86 13325767451 / +853 63298596.', 'fail');
         }
       })
       .catch(function () {
-        showMsg('Something went wrong \u2014 please email us directly at dinosong.trade@ka-ber.com or WhatsApp +86 180 3199 1250.', 'fail');
+        showMsg('Something went wrong \u2014 please email us directly at dinosong.trade@ka-ber.com or WhatsApp +86 13325767451 / +853 63298596.', 'fail');
       })
       .finally(function () {
         btn.disabled = false;
@@ -331,7 +333,7 @@
       <small>Scan with WeChat</small>
     </figure>
   </div>
-  <a class="qr-wa" href="https://wa.me/8618031991250" target="_blank" rel="noopener">Or chat directly on WhatsApp</a>
+  <a class="qr-wa" href="https://wa.me/8613325767451" target="_blank" rel="noopener">Or chat directly on WhatsApp</a>
   <p class="qr-note">We reply within 48 hours (2 business days).</p>
 </div>
 <script>
