@@ -305,12 +305,12 @@
 
 <style>
 /* Floating QR contact */
-.qr-fab{position:fixed;right:18px;top:10%;transform:translateY(calc(-50% + var(--qr-off,0px)));display:flex;align-items:center;gap:10px;background:#1c1f24;color:#f2f1ed;padding:12px 14px;border-radius:14px;cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.14);z-index:999;max-width:188px;user-select:none;text-decoration:none;opacity:0;pointer-events:none;animation:qr-fade .9s ease 3s forwards}
+.qr-fab{position:fixed;right:18px;top:22%;transform:translateY(calc(-50% + var(--qr-off,0px)));display:flex;align-items:center;gap:10px;background:#1c1f24;color:#f2f1ed;padding:12px 14px;border-radius:14px;cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.14);z-index:999;max-width:188px;user-select:none;text-decoration:none;opacity:0;pointer-events:none;animation:qr-fade .9s ease 3s forwards}
 .qr-fab:hover{border-color:#c05621}
 .qr-fab svg{flex:none}
 .qr-fab-txt{font-size:11px;font-weight:600;line-height:1.4;letter-spacing:.01em}
 .qr-txt-short{display:none}
-.qr-panel{position:fixed;right:18px;top:10%;transform:translateY(0) translateX(calc(100% + 26px));width:340px;background:#fff;border:1px solid #e4e1da;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.22);z-index:10000;padding:18px;transition:transform .28s ease;box-sizing:border-box;visibility:hidden}
+.qr-panel{position:fixed;right:18px;top:22%;transform:translateY(0) translateX(calc(100% + 26px));width:340px;background:#fff;border:1px solid #e4e1da;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.22);z-index:10000;padding:18px;transition:transform .28s ease;box-sizing:border-box;visibility:hidden}
 .qr-panel.open{transform:translateY(0) translateX(0);visibility:visible}
 .qr-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .qr-panel-head strong{font-size:15px;font-weight:800;color:#1c1f24;line-height:1.3}
@@ -367,7 +367,7 @@
 (function(){
   var fab=document.getElementById('qrFab'),panel=document.getElementById('qrPanel'),close=document.getElementById('qrClose');
   if(!fab||!panel)return;
-  function open(){panel.classList.add('open');fab.setAttribute('aria-expanded','true')}
+  function open(){panel.classList.add('open');fab.setAttribute('aria-expanded','true');var kp=document.querySelector('.kai-panel');if(kp){kp.classList.remove('open')}}
   function shut(){panel.classList.remove('open');fab.setAttribute('aria-expanded','false')}
   fab.addEventListener('click',function(){panel.classList.contains('open')?shut():open()});
   close.addEventListener('click',function(e){e.stopPropagation();shut()});
