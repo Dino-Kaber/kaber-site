@@ -1,7 +1,7 @@
 /* Kaber AI support widget — inline, self-contained.
    Usage: <script src="assets/js/kaber-ai.js" defer></script> before </body> */
 (function () {
-  var WORKER = 'https://ka-ber-support.workers.dev/chat'; /* Cloudflare Worker proxy — replace when deployed */
+  var WORKER = 'https://kaber-support.dinosong-trade-512.workers.dev/chat'; /* Cloudflare Worker proxy */
   var FAQ = [
     {q:'What seatpost diameters do you offer?', a:'25.4, 27.2, 28.6, 31.8 and 33.9 mm, in 300–500 mm lengths — iron and aluminum alloy, straight or flippable. Need a different size? We can customize per your request.',
       f:[{q:'Can I get a custom diameter?', a:'Yes. All sizes and lengths are adjustable to your requirements — just tell us the exact spec and quantity.'}]},
